@@ -2,7 +2,9 @@ package com.framework.tool.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
@@ -11,7 +13,9 @@ import javax.sql.DataSource;
 @Configuration("scriptMybatis")
 public class MybatisConfig {
 
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) {
+    @Bean
+    @Qualifier
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("scriptDataSource") DataSource dataSource) {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         try {
