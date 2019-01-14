@@ -3,6 +3,8 @@ package com.framework.tool.service.impl;
 import com.framework.tool.service.InitService;
 import com.framework.tool.service.UtilDataSource;
 import org.apache.ibatis.jdbc.ScriptRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,10 @@ public class InitServiceImpl implements InitService {
     @Autowired
     private Map<String, DataSource> dataSourceMap;
 
+    Logger logger = LoggerFactory.getLogger(InitServiceImpl.class);
     public void ecec() {
         try {
             initDataSource(dataSourceMap);
-
             String path = this.getClass().getResource("/").getPath();
             File file = new File(path + File.separator + "dbScript");
             String[] modules = file.list();
