@@ -11,12 +11,10 @@
 
     <properties>
         <mysql.version>5.1.46</mysql.version>
-
     </properties>
 
     <modules>
         <module>script-management</module>
     </modules>
-
 
 </project>

@@ -36,12 +36,12 @@ public class InitServiceImpl implements InitService {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("初始化错误",e);
         }
-
     }
 
     public void initDataSource(Map<String, DataSource> dataSourceMap) {
+        logger.info("开始初始化");
         try {
             String path = this.getClass().getResource("/").getPath();
             File file = new File(path + File.separator + "initTable" + File.separator + "t_schema_table.sql");
