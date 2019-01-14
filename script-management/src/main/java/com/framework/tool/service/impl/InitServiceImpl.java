@@ -52,7 +52,7 @@ public class InitServiceImpl implements InitService {
                 runner.runScript(new FileReader(file));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("初始化错误",e);
         }
     }
 }
