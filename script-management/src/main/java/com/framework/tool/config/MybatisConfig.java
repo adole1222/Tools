@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-@AutoConfigureAfter(DataSourceConfig.class)
-@Configuration("scriptMybatis")
+@AutoConfigureAfter(DataSourceTestConfig.class)
+@Configuration("testMybatis")
 public class MybatisConfig {
 
     @Bean
     @Qualifier
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("scriptDataSource") DataSource dataSource) {
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("testDataSource") DataSource dataSource) {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         try {

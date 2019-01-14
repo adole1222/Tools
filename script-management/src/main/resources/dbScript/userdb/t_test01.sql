@@ -20,6 +20,6 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_test01`;
 CREATE TABLE `t_test01` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  COMMENT 'user',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

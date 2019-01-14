@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-@Configuration("scriptCfg")
-public class DataSourceConfig {
+@Configuration("userCfg")
+public class DataSourceUserConfig {
 
-    @ConfigurationProperties(prefix = "spring.datasource")
-    @Bean("scriptDataSource")
-    @Qualifier("scriptDataSource")
+    @ConfigurationProperties(prefix = "userdb.datasource")
+    @Bean("userDataSource")
+    @Qualifier("userDataSource")
     public DataSource dataSource(){
         return DataSourceBuilder.create().build();
     }
