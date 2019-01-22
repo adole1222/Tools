@@ -17,7 +17,7 @@ public class ScriptManagementApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(ScriptManagementApplication.class,args);
-        System.exit(-1);
+        System.exit(0);
     }
 
     public void run(String... args) throws Exception {

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileReader;
@@ -19,27 +20,26 @@ public class InitServiceImpl implements InitService {
     private Map<String, DataSource> dataSourceMap;
 
     Logger logger = LoggerFactory.getLogger(InitServiceImpl.class);
+
     public void exec() {
         try {
-            initDataSource(dataSourceMap);
+            initDataSource();
             String path = this.getClass().getResource("/").getPath();
             File file = new File(path + File.separator + "dbScript");
             String[] modules = file.list();
             for (String module : modules) {
-                DataSource dataSource = UtilDataSource.getDataSourceMap(module, this.dataSourceMap);
-                ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
+                DataSource dataSource = null;
+                dataSource = UtilDataSource.getDataSourceMap(module, this.dataSourceMap);
                 File scripts = new File(path + File.separator + "dbScript" + File.separator + module);
                 File[] files = scripts.listFiles();
-                for (File script : files) {
-                    scriptRunner.runScript(new FileReader(script));
-                }
+                UtilDataSource.executeScript(dataSource, files);
             }
         } catch (Exception e) {
-            logger.error("初始化错误",e);
+            logger.error("初始化错误", e);
         }
     }
 
-    public void initDataSource(Map<String, DataSource> dataSourceMap) {
+    public void initDataSource() {
         try {
             String path = this.getClass().getResource("/").getPath();
             File file = new File(path + File.separator + "initTable" + File.separator + "t_schema_table.sql");
@@ -50,7 +50,7 @@ public class InitServiceImpl implements InitService {
                 runner.runScript(new FileReader(file));
             }
         } catch (Exception e) {
-            logger.error("初始化错误",e);
+            logger.error("初始化错误", e);
         }
     }
 }

@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,15 +29,34 @@ public class UtilDataSource {
         return dataSourceMap.get(dataSourceKey);
     }
 
-
-    public static void executeScript(ScriptRunner scriptRunner, DataSource dataSource, File script) {
-        try {
-            scriptRunner.runScript(new FileReader(script));
-            String sql = String.format("UPDATE `testdb`.`t_schema_table` SET `id`=NULL, `name`=NULL, `status`=NULL, `add_time`=NULL, `add_user`=NULL, `update_time`=NULL, `update_user`=NULL WHERE (`id`=0);",script.getName());
-            dataSource.getConnection().prepareStatement(sql);
-        }catch (Exception e){
-
+    public static Connection getConnection(String key, Map<String, DataSource> dataSourceMap) throws Exception {
+        String dataSourceKey = dataSourceKeyMap.get(key);
+        if (!dataSourceMap.containsKey(dataSourceKey)) {
+            return dataSourceMap.get(Constant.TEST_DB_DATASOURCE).getConnection();
         }
+        return dataSourceMap.get(dataSourceKey).getConnection();
+    }
 
+
+    public static void executeScript(DataSource dataSource, File[] file) {
+        Connection connection = null;
+        try {
+            ScriptRunner scriptRunner = new ScriptRunner(dataSource.getConnection());
+            connection = dataSource.getConnection();
+            for (File script : file) {
+                scriptRunner.runScript(new FileReader(script));
+                String sql = String.format("INSERT INTO t_schema_table (name, status) VALUES ('%s', %s);", script.getName(), Constant.STATUS_SUCCESS);
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.execute();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

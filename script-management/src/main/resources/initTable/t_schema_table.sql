@@ -24,7 +24,7 @@ CREATE TABLE  IF NOT EXISTS `t_schema_table`(
   `status` int(11) DEFAULT NULL COMMENT '0为待执行，1为执行成功，2为执行失败',
   `add_time` datetime DEFAULT NULL COMMENT '新增时间',
   `add_user` varchar(255) DEFAULT NULL COMMENT '新增人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   `update_user` datetime DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
