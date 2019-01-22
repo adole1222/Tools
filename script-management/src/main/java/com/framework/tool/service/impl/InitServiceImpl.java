@@ -20,7 +20,7 @@ public class InitServiceImpl implements InitService {
     private Map<String, DataSource> dataSourceMap;
 
     Logger logger = LoggerFactory.getLogger(InitServiceImpl.class);
-    public void ecec() {
+    public void exec() {
         try {
             initDataSource(dataSourceMap);
             String path = this.getClass().getResource("/").getPath();

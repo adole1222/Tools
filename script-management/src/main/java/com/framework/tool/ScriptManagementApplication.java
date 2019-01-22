@@ -22,7 +22,7 @@ public class ScriptManagementApplication implements CommandLineRunner {
 
     public void run(String... args) throws Exception {
         logger.info("开始初始化脚本");
-        initService.ecec();
+        initService.exec();
         logger.info("脚本初始化结束");
     }
 }

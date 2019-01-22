@@ -2,5 +2,5 @@ package com.framework.tool.service;
 
 public interface InitService {
 
-    void ecec();
+    void exec();
 }
