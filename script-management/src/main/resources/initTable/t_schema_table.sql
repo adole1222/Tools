@@ -25,7 +25,7 @@ CREATE TABLE  IF NOT EXISTS `t_schema_table`(
   `add_time` datetime DEFAULT NULL COMMENT '新增时间',
   `add_user` varchar(255) DEFAULT NULL COMMENT '新增人',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `uodate_user` datetime DEFAULT NULL COMMENT '更新人',
+  `update_user` datetime DEFAULT NULL COMMENT '更新人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
